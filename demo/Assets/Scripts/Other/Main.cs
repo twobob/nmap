@@ -33,6 +33,6 @@ public class Main : MonoBehaviour
         NoisyEdges noisyEdge = new NoisyEdges();
         noisyEdge.BuildNoisyEdges(_map);
 
-        new MapTexture(_textureScale).AttachTexture(GameObject.Find("Map"), _map);
+        new MapTexture(_textureScale).AttachTexture(GameObject.Find("Map"), _map,noisyEdge);
 	}
 }

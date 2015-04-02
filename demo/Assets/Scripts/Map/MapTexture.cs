@@ -14,7 +14,7 @@ namespace Assets.Map
             _textureScale = textureScale;
         }
 
-        public void AttachTexture(GameObject plane, Map map)
+        public void AttachTexture(GameObject plane, Map map,NoisyEdges noisyEdge)
         {
 
             int _textureWidth = (int)Map.Width * _textureScale;
@@ -37,6 +37,29 @@ namespace Assets.Map
 
             foreach (var line in map.Graph.edges.Where(p => p.river > 0 && !p.d0.water && !p.d1.water))
                 DrawLine(texture, line.v0.point.x, line.v0.point.y, line.v1.point.x, line.v1.point.y, Color.blue);
+
+            //绘制扰乱的边缘
+            foreach (Center p in map.Graph.centers)
+            {
+                foreach (var r in p.neighbors)
+                {
+                    Edge edge = map.Graph.lookupEdgeFromCenter(p, r);
+                    if (!noisyEdge.path0.ContainsKey(edge.index) || !noisyEdge.path1.ContainsKey(edge.index))
+                    {
+                        // It's at the edge of the map, where we don't have
+                        // the noisy edges computed. TODO: figure out how to
+                        // fill in these edges from the voronoi library.
+                        continue;
+                    }
+                    List<Vector2> edge0 = noisyEdge.path0[edge.index];
+                    for (int i = 0; i < edge0.Count - 1; i++)
+                        DrawLine(texture, edge0[i].x, edge0[i].y, edge0[i + 1].x, edge0[i + 1].y, Color.red);
+
+                    List<Vector2> edge1 = noisyEdge.path1[edge.index];
+                    for (int i = 0; i < edge1.Count - 1; i++)
+                        DrawLine(texture, edge1[i].x, edge1[i].y, edge1[i + 1].x, edge1[i + 1].y, Color.red);
+                }
+            }
 
             texture.Apply();
 

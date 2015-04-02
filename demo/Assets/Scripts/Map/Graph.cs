@@ -581,7 +581,7 @@ namespace Assets.Map
             }
         }
 
-        private Edge lookupEdgeFromCenter(Center p, Center r)
+        public Edge lookupEdgeFromCenter(Center p, Center r)
         {
             foreach (var edge in p.borders)
             {
@@ -591,7 +591,7 @@ namespace Assets.Map
             return null;
         }
 
-        private Edge lookupEdgeFromCorner(Corner q, Corner s)
+        public Edge lookupEdgeFromCorner(Corner q, Corner s)
         {
             foreach (var edge in q.protrudes)
             {

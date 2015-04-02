@@ -15,6 +15,7 @@ public class NoisyEdges
     public Dictionary<int, List<Vector2>> path0 = new Dictionary<int, List<Vector2>>();// edge index -> Vector.<Point>
     public Dictionary<int, List<Vector2>> path1 = new Dictionary<int, List<Vector2>>();// edge index -> Vector.<Point>
 
+    private const float SizeScale = 0.1f;
     // Build noisy line paths for each of the Voronoi edges. There are
     // two noisy line paths for each edge, each covering half the
     // distance: path0 is from v0 to the midpoint and path1 is from v1
@@ -35,11 +36,11 @@ public class NoisyEdges
                     Vector2 r = Vector2Extensions.Interpolate(edge.v1.point, edge.d0.point, f);
                     Vector2 s = Vector2Extensions.Interpolate(edge.v1.point, edge.d1.point, f);
 
-                    int minLength = 10;
-                    if (edge.d0.biome != edge.d1.biome) minLength = 3;
-                    if (edge.d0.ocean && edge.d1.ocean) minLength = 100;
-                    if (edge.d0.coast || edge.d1.coast) minLength = 1;
-                    if (edge.river > 0) minLength = 1;
+                    float minLength = 10 * SizeScale;
+                    if (edge.d0.biome != edge.d1.biome) minLength = 3 * SizeScale;
+                    if (edge.d0.ocean && edge.d1.ocean) minLength = 100 * SizeScale;
+                    if (edge.d0.coast || edge.d1.coast) minLength = 1 * SizeScale;
+                    if (edge.river > 0) minLength = 1 * SizeScale;
 
                     path0[edge.index] = buildNoisyLineSegments(edge.v0.point, t, edge.midpoint, q, minLength);
                     path1[edge.index] = buildNoisyLineSegments(edge.v1.point, s, edge.midpoint, r, minLength);
@@ -50,7 +51,7 @@ public class NoisyEdges
 
     // Helper function: build a single noisy line in a quadrilateral A-B-C-D,
     // and store the output points in a Vector.
-    private List<Vector2> buildNoisyLineSegments(Vector2 A, Vector2 B, Vector2 C, Vector2 D, int minLength)
+    private List<Vector2> buildNoisyLineSegments(Vector2 A, Vector2 B, Vector2 C, Vector2 D, float minLength)
     {
         List<Vector2> points = new List<Vector2>();
         
@@ -61,7 +62,7 @@ public class NoisyEdges
         return points;
     }
 
-    private void subdivide(Vector2 A, Vector2 B, Vector2 C, Vector2 D, List<Vector2> points, int minLength)
+    private void subdivide(Vector2 A, Vector2 B, Vector2 C, Vector2 D, List<Vector2> points, float minLength)
     {
         if (Vector2.Distance(A,C) < minLength || Vector2.Distance(B,D)<minLength)
             return;
