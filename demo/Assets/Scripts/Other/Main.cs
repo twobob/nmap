@@ -29,6 +29,10 @@ public class Main : MonoBehaviour
 
         GameObject.Find("Main Camera").GetComponentInChildren<Camera>().Map = _map;
 
+        //»≈¬“±ﬂ‘µ
+        NoisyEdges noisyEdge = new NoisyEdges();
+        noisyEdge.BuildNoisyEdges(_map);
+
         new MapTexture(_textureScale).AttachTexture(GameObject.Find("Map"), _map);
 	}
 }
