@@ -20,7 +20,7 @@ namespace Assets.Map
             int _textureWidth = (int) Map.Width*_textureScale;
             int _textureHeight = (int) Map.Height*_textureScale;
 
-            Texture2D texture = new Texture2D(_textureWidth, _textureHeight);
+            Texture2D texture = new Texture2D(_textureWidth, _textureHeight,TextureFormat.RGB565, true);
             texture.SetPixels(Enumerable.Repeat(Color.magenta, _textureWidth*_textureHeight).ToArray());
 
             var lines = map.Graph.edges.Where(p => p.v0 != null).Select(p => new[]
