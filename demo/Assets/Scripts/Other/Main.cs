@@ -8,7 +8,7 @@ using Assets.Map;
 public class Main : MonoBehaviour
 {
     Map _map;
-    const int _textureScale = 50;
+    const int _textureScale = 10;
     GameObject _selector;
 
     void Update()
@@ -23,7 +23,7 @@ public class Main : MonoBehaviour
 	{
         _selector = GameObject.Find("Selector");
 
-        Random.seed = 1;
+        //Random.seed = 1;
             
         _map = new Map();
 
