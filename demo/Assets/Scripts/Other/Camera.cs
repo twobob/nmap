@@ -19,16 +19,16 @@ public class Camera : MonoBehaviour
         _mousePosX = Input.mousePosition.x;
         _mousePosY = Input.mousePosition.y;
 
-        if (Input.GetMouseButton(0))
-        {
-            Ray ray = GetComponent<UnityEngine.Camera>().ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                _mouseLeftClick = hit.point;
-                Map.Click(_mouseLeftClick);
-            }
-        }
+//        if (Input.GetMouseButton(0))
+//        {
+//            Ray ray = GetComponent<UnityEngine.Camera>().ScreenPointToRay(Input.mousePosition);
+//            RaycastHit hit;
+//            if (Physics.Raycast(ray, out hit))
+//            {
+//                _mouseLeftClick = hit.point;
+//                Map.Click(_mouseLeftClick);
+//            }
+//        }
 
         if (Input.GetMouseButton(1))
         {

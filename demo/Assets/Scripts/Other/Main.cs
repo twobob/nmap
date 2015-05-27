@@ -11,13 +11,13 @@ public class Main : MonoBehaviour
     const int _textureScale = 10;
     GameObject _selector;
 
-    void Update()
-    {
-        if (_map != null && _map.SelectedCenter != null)
-        {
-            _selector.transform.localPosition = new Vector3(_map.SelectedCenter.point.x, _map.SelectedCenter.point.y, 1);
-        }
-    }
+//    void Update()
+//    {
+//        if (_map != null && _map.SelectedCenter != null)
+//        {
+//            _selector.transform.localPosition = new Vector3(_map.SelectedCenter.point.x, _map.SelectedCenter.point.y, 1);
+//        }
+//    }
 
 	void Awake ()
 	{
