@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class UI_Main : MonoBehaviour
 {
     private int MapSeed = 1;
-    const int TextureScale = 1;
+    const int TextureScale = 10;
 	// Use this for initialization
     void Start()
     {
@@ -37,6 +37,13 @@ public class UI_Main : MonoBehaviour
         new MapTexture1(TextureScale).AttachTexture(GameObject.Find("Map"), map);
     }
 
+    private void GenMap3()
+    {
+        Map1 map = new Map1(true);
+
+        new MapTexture1(TextureScale).DrawTwoGraph(GameObject.Find("Map"), map);
+    }
+
     #region UI
     public void ResetSeed()
     {
@@ -55,6 +62,9 @@ public class UI_Main : MonoBehaviour
                 break;
             case 2:
                 GenMap2();
+                break;
+            case 3:
+                GenMap3();
                 break;
         }
         Debug.Log("阶段："+index);

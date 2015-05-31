@@ -11,23 +11,22 @@ namespace Assets.Map
     {
         private int _pointCount = 500;
         float _lakeThreshold = 0.3f;
-        public const float Width = 500;
-        public const float Height = 500;
+        public const float Width = 50;
+        public const float Height = 50;
         const int NUM_LLOYD_RELAXATIONS = 2;
 
         public Graph Graph { get; private set; }
         public Center SelectedCenter { get; private set; }
 
-        public List<Vector2> OriPoints = new List<Vector2>();
-
         public Map1(bool needRelax = false)
         {
             List<uint> colors = new List<uint>();
+            var points = new List<Vector2>();
 
             for (int i = 0; i < _pointCount; i++)
             {
                 colors.Add(0);
-                OriPoints.Add(new Vector2(
+                points.Add(new Vector2(
                         UnityEngine.Random.Range(0, Width),
                         UnityEngine.Random.Range(0, Height))
                 );
@@ -36,12 +35,12 @@ namespace Assets.Map
             if (needRelax)
             {
                 for (int i = 0; i < NUM_LLOYD_RELAXATIONS; i++)
-                    OriPoints = Graph.RelaxPoints(OriPoints, Width, Height).ToList();
+                    points = Graph.RelaxPoints(points, Width, Height).ToList();
             }
 
-            var voronoi = new Voronoi(OriPoints, colors, new Rect(0, 0, Width, Height));
+            var voronoi = new Voronoi(points, colors, new Rect(0, 0, Width, Height));
 
-            Graph = new Graph(OriPoints, voronoi, (int)Width, (int)Height, _lakeThreshold);
+            Graph = new Graph(points, voronoi, (int)Width, (int)Height, _lakeThreshold);
         }
     }
 }

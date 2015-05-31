@@ -11,8 +11,8 @@ namespace Assets.Map
     {
         private int _pointCount = 500;
         float _lakeThreshold = 0.3f;
-        public const float Width = 500;
-        public const float Height = 500;
+        public const float Width = 50;
+        public const float Height = 50;
         const int NUM_LLOYD_RELAXATIONS = 2;
         
         public Graph Graph { get; private set; }
