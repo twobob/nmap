@@ -37,7 +37,7 @@ namespace Assets.Map
 
             var voronoi = new Voronoi(points, colors, new Rect(0, 0, Width, Height));
 
-            Graph = new Graph(points, voronoi, (int)Width, (int)Height, _lakeThreshold);
+            Graph = new Graph(IslandShape.makePerlin(), points, voronoi, (int)Width, (int)Height, _lakeThreshold);
         }
     }
 }

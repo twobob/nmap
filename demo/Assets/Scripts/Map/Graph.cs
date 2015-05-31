@@ -23,9 +23,18 @@ namespace Assets.Map
 
         public Graph(IEnumerable<Vector2> points, Voronoi voronoi, int width, int height, float lakeThreshold)
         {
+            Init(IslandShape.makePerlin(), points, voronoi, width, height, lakeThreshold);
+        }
+        public Graph(Func<Vector2, bool> checkIsland, IEnumerable<Vector2> points, Voronoi voronoi, int width, int height, float lakeThreshold)
+        {
+            Init(checkIsland, points, voronoi, width, height, lakeThreshold);
+        }
+
+        void Init(Func<Vector2, bool> checkIsland, IEnumerable<Vector2> points, Voronoi voronoi, int width, int height, float lakeThreshold)
+        {
             Width = width;
             Height = height;
-            inside = IslandShape.makePerlin();
+            inside = checkIsland;
 
             BuildGraph(points, voronoi);
             AssignCornerElevations();
