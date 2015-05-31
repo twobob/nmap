@@ -13,6 +13,7 @@ public class UI_Main : MonoBehaviour
     {
     }
 
+    #region Tutorial
     void GenMap()
     {
         Map map = new Map();
@@ -44,6 +45,14 @@ public class UI_Main : MonoBehaviour
         new MapTexture1(TextureScale).DrawTwoGraph(GameObject.Find("Map"), map);
     }
 
+    private void GenMap4()
+    {
+        Map2 map = new Map2();
+
+        new MapTexture2(TextureScale).AttachTexture(GameObject.Find("Map"), map);
+    }
+    #endregion
+
     #region UI
     public void ResetSeed()
     {
@@ -65,6 +74,9 @@ public class UI_Main : MonoBehaviour
                 break;
             case 3:
                 GenMap3();
+                break;
+            case 4:
+                GenMap4();
                 break;
         }
         Debug.Log("阶段："+index);
