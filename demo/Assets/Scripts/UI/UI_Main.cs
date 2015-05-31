@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class UI_Main : MonoBehaviour
 {
     private int MapSeed = 1;
-    const int TextureScale = 10;
+    const int TextureScale = 20;
 	// Use this for initialization
     void Start()
     {

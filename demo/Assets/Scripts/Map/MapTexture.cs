@@ -23,11 +23,14 @@ namespace Assets.Map
             Texture2D texture = new Texture2D(_textureWidth, _textureHeight,TextureFormat.RGB565, true);
             texture.SetPixels(Enumerable.Repeat(Color.magenta, _textureWidth*_textureHeight).ToArray());
 
-            var lines = map.Graph.edges.Where(p => p.v0 != null).Select(p => new[]
-            {
-                p.v0.point.x, p.v0.point.y,
-                p.v1.point.x, p.v1.point.y
-            }).ToArray();
+//            var lines = map.Graph.edges.Where(p => p.v0 != null).Select(p => new[]
+//            {
+//                p.v0.point.x, p.v0.point.y,
+//                p.v1.point.x, p.v1.point.y
+//            }).ToArray();
+//
+//            foreach (var line in lines)
+//                DrawLine(texture, line[0], line[1], line[2], line[3], Color.black);
 
 //            foreach (var c in map.Graph.centers)
 //                texture.FillPolygon(
@@ -60,9 +63,6 @@ namespace Assets.Map
 //                        DrawLine(texture, edge1[i].x, edge1[i].y, edge1[i + 1].x, edge1[i + 1].y, Color.red);
                 }
             }
-
-            foreach (var line in lines)
-                DrawLine(texture, line[0], line[1], line[2], line[3], Color.black);
 
             foreach (var line in map.Graph.edges.Where(p => p.river > 0 && !p.d0.water && !p.d1.water))
                 DrawLine(texture, line.v0.point.x, line.v0.point.y, line.v1.point.x, line.v1.point.y, Color.blue);
