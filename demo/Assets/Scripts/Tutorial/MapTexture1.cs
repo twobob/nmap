@@ -17,11 +17,11 @@ namespace Assets.Map
 
         public void AttachTexture(GameObject plane, Map1 map)
         {
-            int _textureWidth = (int)Map.Width * _textureScale;
-            int _textureHeight = (int)Map.Height * _textureScale;
+            int textureWidth = (int)Map1.Width * _textureScale;
+            int textureHeight = (int)Map1.Height * _textureScale;
 
-            Texture2D texture = new Texture2D(_textureWidth, _textureHeight, TextureFormat.RGB565, true);
-            texture.SetPixels(Enumerable.Repeat(Color.white, _textureWidth * _textureHeight).ToArray());
+            Texture2D texture = new Texture2D(textureWidth, textureHeight, TextureFormat.RGB565, true);
+            texture.SetPixels(Enumerable.Repeat(Color.white, textureWidth * textureHeight).ToArray());
 
             var lines = map.Graph.edges.Where(p => p.v0 != null).Select(p => new[]
             {
@@ -32,14 +32,14 @@ namespace Assets.Map
             foreach (var line in lines)
                 DrawLine(texture, line[0], line[1], line[2], line[3], Color.black);
 
-            var points = map.Graph.centers.Select(p => p.point).ToArray();
+            var points = map.OriPoints;
             foreach (var p in points)
                 texture.SetPixel((int)p.x * _textureScale, (int)p.y * _textureScale, Color.red);
 
             texture.Apply();
 
             plane.GetComponent<Renderer>().material.mainTexture = texture;
-            plane.transform.localPosition = new Vector3(Map.Width / 2, Map.Height / 2, 1);
+            //plane.transform.localPosition = new Vector3(Map.Width / 2, Map.Height / 2, 1);
         }
 
         private void DrawLine(Texture2D texture, float x0, float y0, float x1, float y1, Color color)
