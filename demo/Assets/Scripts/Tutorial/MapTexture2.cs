@@ -21,12 +21,18 @@ namespace Assets.Map
             var texture = new Texture2D(textureWidth, textureHeight, TextureFormat.RGB565, true);
             texture.SetPixels(Enumerable.Repeat(BiomeProperties.Colors[Biome.Ocean], textureWidth * textureHeight).ToArray());
 
-            //根据类型绘制格子颜色
-            var oceanConors = map.Graph.centers.Where(p => !p.ocean).Select(p => p.corners);
+            //绘制陆地
+            var oceanConors = map.Graph.centers.Where(p => !p.water).Select(p => p.corners);
             foreach (var conors in oceanConors)
                 texture.FillPolygon(
                     conors.Select(p=>p.point * _textureScale).ToArray(),
-                    BiomeProperties.Colors[Biome.Grassland]);
+                    BiomeProperties.Colors[Biome.Beach]);
+            //绘制湖泊
+            var lakeConors = map.Graph.centers.Where(p => p.water && !p.ocean).Select(p => p.corners);
+            foreach (var conors in lakeConors)
+                texture.FillPolygon(
+                    conors.Select(p => p.point * _textureScale).ToArray(),
+                    BiomeProperties.Colors[Biome.Lake]);
 
             //绘制边缘
             var lines = map.Graph.edges.Where(p => p.v0 != null).Select(p => new[]
