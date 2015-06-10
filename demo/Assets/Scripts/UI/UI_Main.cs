@@ -51,6 +51,13 @@ public class UI_Main : MonoBehaviour
 
         new MapTexture2(TextureScale).AttachTexture(GameObject.Find("Map"), map);
     }
+
+    private void GenMap5()
+    {
+        Map2 map = new Map2();
+
+        new MapTexture2(TextureScale).ShowElevation(GameObject.Find("Map"), map);
+    }
     #endregion
 
     #region UI
@@ -77,6 +84,9 @@ public class UI_Main : MonoBehaviour
                 break;
             case 4:
                 GenMap4();
+                break;
+            case 5:
+                GenMap5();
                 break;
         }
         Debug.Log("阶段："+index);

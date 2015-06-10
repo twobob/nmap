@@ -52,6 +52,39 @@ namespace Assets.Map
 
             plane.GetComponent<Renderer>().material.mainTexture = texture;
         }
+        public void ShowElevation(GameObject plane, Map2 map)
+        {
+            var textureWidth = (int)Map1.Width * _textureScale;
+            var textureHeight = (int)Map1.Height * _textureScale;
+
+            var texture = new Texture2D(textureWidth, textureHeight, TextureFormat.RGB565, true);
+            texture.SetPixels(Enumerable.Repeat(BiomeProperties.Colors[Biome.Ocean], textureWidth * textureHeight).ToArray());
+
+            //绘制陆地
+            var lands = map.Graph.centers.Where(p => !p.ocean);
+            foreach (var land in lands)
+                texture.FillPolygon(
+                    land.corners.Select(p => p.point * _textureScale).ToArray(),
+                    BiomeProperties.Colors[Biome.Grassland] * (1 + 2*land.elevation));
+
+            //绘制边缘
+            var lines = map.Graph.edges.Where(p => p.v0 != null).Select(p => new[]
+            {
+                p.v0.point.x, p.v0.point.y,
+                p.v1.point.x, p.v1.point.y
+            }).ToArray();
+
+            foreach (var line in lines)
+                DrawLine(texture, line[0], line[1], line[2], line[3], Color.black);
+            //绘制中心点
+            var points = map.Graph.centers.Select(p => p.point).ToList();
+            foreach (var p in points)
+                texture.SetPixel((int)(p.x * _textureScale), (int)(p.y * _textureScale), Color.red);
+
+            texture.Apply();
+
+            plane.GetComponent<Renderer>().material.mainTexture = texture;
+        }
 
         private void DrawLine(Texture2D texture, float x0, float y0, float x1, float y1, Color color)
         {
