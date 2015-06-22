@@ -14,7 +14,7 @@ public class UI_Main : MonoBehaviour
     }
 
     #region Tutorial
-    void GenMap()
+    void GenMap0()
     {
         Map map = new Map();
         //扰乱边缘
@@ -65,6 +65,13 @@ public class UI_Main : MonoBehaviour
 		
 		new MapTexture2(TextureScale).ShowRivers(GameObject.Find("Map"), map);
 	}
+	
+	void GenMap7()
+	{
+		Map2 map = new Map2();
+		
+		new MapTexture2(TextureScale).DrawMoisture(GameObject.Find("Map"), map);
+	}
     #endregion
 
     #region UI
@@ -75,31 +82,7 @@ public class UI_Main : MonoBehaviour
     public void ClickGenMap(int index)
     {
         Random.seed = MapSeed;
-        switch (index)
-        {
-            case 0:
-                GenMap();
-                break;
-            case 1:
-                GenMap1();
-                break;
-            case 2:
-                GenMap2();
-                break;
-            case 3:
-                GenMap3();
-                break;
-            case 4:
-                GenMap4();
-                break;
-            case 5:
-                GenMap5();
-			break;
-		case 6:
-			GenMap6();
-			break;
-        }
-        Debug.Log("阶段："+index);
+		gameObject.SendMessage ("GenMap" + index);
     }
 
     #endregion
