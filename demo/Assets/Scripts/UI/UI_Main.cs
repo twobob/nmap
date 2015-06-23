@@ -72,6 +72,13 @@ public class UI_Main : MonoBehaviour
 		
 		new MapTexture2(TextureScale).DrawMoisture(GameObject.Find("Map"), map);
 	}
+
+    void GenMap8()
+    {
+        Map2 map = new Map2();
+
+        new MapTexture2(TextureScale).DrawBiome(GameObject.Find("Map"), map);
+    }
     #endregion
 
     #region UI
