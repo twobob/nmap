@@ -9,4 +9,4 @@ fork自https://github.com/staff0rd/polygon-map-unity
 原版截图：
 ![Polygon Map Generator](/screenshot.PNG?raw=true)
 整合了步骤后的截图
-![NMap](/screenshot1.PNG?raw=true)
+![NMap](/screenshot1.png?raw=true)
