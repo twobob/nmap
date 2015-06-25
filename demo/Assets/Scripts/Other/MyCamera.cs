@@ -2,7 +2,7 @@
 using System.Collections;
 using Assets.Map;
 
-public class Camera : MonoBehaviour
+public class MyCamera : MonoBehaviour
 {
     public Map Map;
     float _mousePosX;
@@ -21,7 +21,7 @@ public class Camera : MonoBehaviour
 
 //        if (Input.GetMouseButton(0))
 //        {
-//            Ray ray = GetComponent<UnityEngine.Camera>().ScreenPointToRay(Input.mousePosition);
+//            Ray ray = GetComponent<UnityEngine.MyCamera>().ScreenPointToRay(Input.mousePosition);
 //            RaycastHit hit;
 //            if (Physics.Raycast(ray, out hit))
 //            {
