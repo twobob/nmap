@@ -15,8 +15,8 @@ namespace Assets.Map
 
         public void AttachTexture(GameObject plane, Map2 map)
         {
-            var textureWidth = (int) Map1.Width*_textureScale;
-            var textureHeight = (int) Map1.Height*_textureScale;
+            var textureWidth = (int) Map2.Width*_textureScale;
+            var textureHeight = (int) Map2.Height*_textureScale;
 
             var texture = new Texture2D(textureWidth, textureHeight, TextureFormat.RGB565, true);
             texture.SetPixels(Enumerable.Repeat(BiomeProperties.Colors[Biome.Ocean], textureWidth * textureHeight).ToArray());

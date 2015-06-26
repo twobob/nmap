@@ -17,6 +17,7 @@ public class UI_Main : MonoBehaviour
     void GenMap0()
     {
         Map map = new Map();
+        map.Init();
         //扰乱边缘
         NoisyEdges noisyEdge = new NoisyEdges();
         noisyEdge.BuildNoisyEdges(map);
@@ -48,35 +49,35 @@ public class UI_Main : MonoBehaviour
     private void GenMap4()
     {
         Map2 map = new Map2();
-
+        map.Init();
         new MapTexture2(TextureScale).AttachTexture(GameObject.Find("Map"), map);
     }
 
     private void GenMap5()
     {
         Map2 map = new Map2();
-
+        map.Init();
         new MapTexture2(TextureScale).ShowElevation(GameObject.Find("Map"), map);
     }
 
 	void GenMap6()
 	{
-		Map2 map = new Map2();
-		
+        Map2 map = new Map2();
+        map.Init();
 		new MapTexture2(TextureScale).ShowRivers(GameObject.Find("Map"), map);
 	}
 	
 	void GenMap7()
 	{
-		Map2 map = new Map2();
-		
+        Map2 map = new Map2();
+        map.Init();
 		new MapTexture2(TextureScale).DrawMoisture(GameObject.Find("Map"), map);
 	}
 
     void GenMap8()
     {
         Map2 map = new Map2();
-
+        map.Init();
         new MapTexture2(TextureScale).DrawBiome(GameObject.Find("Map"), map);
     }
     #endregion

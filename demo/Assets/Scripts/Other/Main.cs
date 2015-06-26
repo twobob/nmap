@@ -26,6 +26,7 @@ public class Main : MonoBehaviour
         //Random.seed = 1;
             
         _map = new Map();
+        _map.Init();
 
         GameObject.Find("Main MyCamera").GetComponentInChildren<MyCamera>().Map = _map;
 
