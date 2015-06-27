@@ -37,3 +37,4 @@ demo/Assets/UnityVS/
 /demo/obj
 /demo/*.htm
 /demo/webgl
+/export

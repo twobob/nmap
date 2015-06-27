@@ -34,6 +34,36 @@ namespace Assets.Map
             { Biome.TropicalRainForest, HexToColor("337755") },
             { Biome.TropicalSeasonalForest, HexToColor("559944") }
         };
+
+        public static Dictionary<Biome, string> Chinese = new Dictionary<Biome, string>
+        {
+            { Biome.Ocean,"海洋"},
+            //{ COAST, HexToColor("33335a") },
+            //{ LAKESHORE, HexToColor("225588") },
+            { Biome.Lake, "湖泊"},
+            //{ RIVER, HexToColor("225588") },
+            { Biome.Marsh, "沼泽"},
+            { Biome.Ice, "冰原"},
+            { Biome.Beach, "海滩"},
+            //{ ROAD1, HexToColor("442211") },
+            //{ ROAD2, HexToColor("553322") },
+            //{ ROAD3, HexToColor("664433") },
+            //{ BRIDGE, HexToColor("686860") },
+            //{ LAVA, HexToColor("cc3333") },
+            { Biome.Snow, "雪山"},
+            { Biome.Tundra, "冻原"},
+            { Biome.Bare, "荒原"},
+            { Biome.Scorched, "焦土"},
+            { Biome.Taiga, "针叶林"},
+            { Biome.Shrubland,"灌木丛"},
+            { Biome.TemperateDesert, "温带沙漠"},
+            { Biome.TemperateRainForest, "温带雨林"},
+            { Biome.TemperateDeciduousForest, "温带落叶林"},
+            { Biome.Grassland, "草原"},
+            { Biome.SubtropicalDesert, "亚热带沙漠"},
+            { Biome.TropicalRainForest, "热带雨林"},
+            { Biome.TropicalSeasonalForest, "热带季雨林"},
+        };
         static Color HexToColor(string hex)
         {
             byte r = byte.Parse(hex.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);

@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using System.Collections;
 using Assets.Map;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -13,12 +12,14 @@ public class UI_GenNameMap : MonoBehaviour
 	// Use this for initialization
     private Font _dFont;
     private RawImage _image;
+    private Text _mouseBiome;
     private GameObject _showMap;
 	void Start ()
 	{
         _inputName = transform.FindChild("inputName").GetComponent<InputField>();
         _btnGen = transform.FindChild("btnGen").GetComponent<Button>();
         _image = transform.FindChild("RawImage").GetComponent<RawImage>();
+        _mouseBiome = transform.FindChild("MouseBiome").GetComponent<Text>();
 	    _dFont = _inputName.textComponent.font;
 
         _btnGen.onClick.AddListener(GenMap);
@@ -34,12 +35,65 @@ public class UI_GenNameMap : MonoBehaviour
         transform.FindChild("Toggles2/Toggle2").GetComponent<Toggle>().onValueChanged.AddListener(ToggleLake);
 	}
 
+    void Update()
+    {
+        CheckMouseBiome();
+    }
+
+    private float _nextCheckTime;
+    private void CheckMouseBiome()
+    {
+        if(Time.time < _nextCheckTime)
+            return;
+        _nextCheckTime = Time.time + 0.1f;
+
+        Vector2 pos = Input.mousePosition; // Mouse position
+        RaycastHit hit;
+        Camera _cam = Camera.main; // Camera to use for raycasting
+        Ray ray = _cam.ScreenPointToRay(pos);
+        Physics.Raycast(_cam.transform.position, ray.direction, out hit, 10000.0f);
+        Color c;
+        if (hit.collider)
+        {
+            Texture2D tex = (Texture2D)hit.collider.gameObject.GetComponent<Renderer>().material.mainTexture; // Get texture of object under mouse pointer
+            if (tex)
+            {
+                c = tex.GetPixelBilinear(hit.textureCoord2.x, hit.textureCoord2.y); // Get color from texture
+
+                Biome b = ChangeColorToBiome(c);
+                _mouseBiome.text = BiomeProperties.Chinese[b];
+            }
+        }
+    }
+
+    private Biome ChangeColorToBiome(Color color)
+    {
+        Biome b = Biome.Ocean;
+        foreach (var bc in BiomeProperties.Colors)
+        {
+            if (ColorNearby(bc.Value , color))
+            {
+                b = bc.Key;
+                break;
+            }
+        }
+        return b;
+    }
+
+    bool ColorNearby(Color ls, Color rs)
+    {
+        bool rSame = Mathf.Abs(ls.r - rs.r) < 0.02f;
+        bool gSame = Mathf.Abs(ls.g - rs.g) < 0.02f;
+        bool bSame = Mathf.Abs(ls.b - rs.b) < 0.02f;
+        return rSame && gSame && bSame;
+    }
+
     private static Texture2D _txtTexture;
     const int TextureScale = 20;
     private const int Width = 100;
     private const int Height = 50;
     private int _pointNum = 1000;
-    private static bool _isLake;
+    private static bool _isLake = true;
     void Toggle1(bool check)
     {
         if (check)
@@ -48,17 +102,17 @@ public class UI_GenNameMap : MonoBehaviour
     void Toggle2(bool check)
     {
         if (check)
-            _pointNum = 2500;
+            _pointNum = 2000;
     }
     void Toggle3(bool check)
     {
         if (check)
-            _pointNum = 4000;
+            _pointNum = 3000;
     }
     void Toggle4(bool check)
     {
         if (check)
-            _pointNum = 10000;
+            _pointNum = 5000;
     }
     void ToggleLand(bool check)
     {
