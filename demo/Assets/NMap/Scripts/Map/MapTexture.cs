@@ -13,12 +13,12 @@ namespace Assets.Map
             _textureScale = textureScale;
         }
 
-        public void AttachTexture(GameObject plane, Map map, NoisyEdges noisyEdge)
+        public Texture2D GetTexture(Map map, NoisyEdges noisyEdge)
         {
-            int textureWidth = (int) Map.Width*_textureScale;
-            int textureHeight = (int) Map.Height*_textureScale;
+            int textureWidth = (int)Map.Width * _textureScale;
+            int textureHeight = (int)Map.Height * _textureScale;
 
-            Texture2D texture = new Texture2D(textureWidth, textureHeight,TextureFormat.RGB565, true);
+            Texture2D texture = new Texture2D(textureWidth, textureHeight, TextureFormat.RGB565, true);
             texture.SetPixels(Enumerable.Repeat(BiomeProperties.Colors[Biome.Ocean], textureWidth * textureHeight).ToArray());
 
             //绘制扰乱的边缘
@@ -54,6 +54,12 @@ namespace Assets.Map
 
             texture.Apply();
 
+            return texture;
+        }
+
+        public void AttachTexture(GameObject plane, Map map, NoisyEdges noisyEdge)
+        {
+            Texture2D texture = GetTexture(map, noisyEdge);
             plane.GetComponent<Renderer>().material.mainTexture = texture;
         }
 
